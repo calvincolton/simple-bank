@@ -28,9 +28,7 @@ func NewStore(db *sql.DB) Store {
 
 // ExecTx executes a function within a database transaction
 func (store *SQLStore) execTx(ctx context.Context, fn func(*Queries) error) error {
-	tx, err := store.db.BeginTx(ctx, &sql.TxOptions{
-		Isolation: sql.LevelSerializable,
-	})
+	tx, err := store.db.BeginTx(ctx, nil)
 	if err != nil {
 		return err
 	}
